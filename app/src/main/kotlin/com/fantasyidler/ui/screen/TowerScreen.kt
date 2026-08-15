@@ -109,6 +109,7 @@ fun TowerScreen(
                     hasSession           = state.towerSession != null,
                     sessionDone          = state.towerSession?.completed == true,
                     startingSession      = state.startingSession,
+                    isQueueFull          = state.isQueueFull,
                     equippedWeapons      = state.equippedWeapons,
                     selectedWeaponSlot   = state.selectedWeaponSlot,
                     onWeaponSlotSelected = viewModel::selectWeaponSlot,
@@ -159,6 +160,7 @@ private fun TowerHeaderCard(
     hasSession:           Boolean,
     sessionDone:          Boolean,
     startingSession:      Boolean,
+    isQueueFull:          Boolean,
     equippedWeapons:      Map<String, EquipmentData>,
     selectedWeaponSlot:   String?,
     onWeaponSlotSelected: (String) -> Unit,
@@ -350,7 +352,7 @@ private fun TowerHeaderCard(
 
                 else        -> Button(
                     onClick  = onStart,
-                    enabled  = !startingSession,
+                    enabled  = !startingSession && !isQueueFull,
                     modifier = Modifier.fillMaxWidth(),
                 ) {
                     Text(stringResource(R.string.tower_start_btn, nextFloorToQueue))

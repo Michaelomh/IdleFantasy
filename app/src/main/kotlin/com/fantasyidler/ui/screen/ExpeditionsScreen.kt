@@ -82,7 +82,7 @@ fun ExpeditionsScreen(
                     items(dungeons, key = { it.key }) { item ->
                         SkillingDungeonCard(
                             item = item,
-                            anySessionActive = state.anySessionActive,
+                            isQueueFull = state.isQueueFull,
                             onExplore = { viewModel.startExpedition(item.key) },
                         )
                     }
@@ -96,7 +96,7 @@ fun ExpeditionsScreen(
 @Composable
 private fun SkillingDungeonCard(
     item: SkillingDungeonUiItem,
-    anySessionActive: Boolean,
+    isQueueFull: Boolean,
     onExplore: () -> Unit,
 ) {
     val context = LocalContext.current
@@ -136,7 +136,7 @@ private fun SkillingDungeonCard(
                 Spacer(modifier = Modifier.width(8.dp))
                 Button(
                     onClick = onExplore,
-                    enabled = item.isAccessible,
+                    enabled = item.isAccessible && !isQueueFull,
                 ) {
                     Text(stringResource(R.string.expedition_explore_button))
                 }
