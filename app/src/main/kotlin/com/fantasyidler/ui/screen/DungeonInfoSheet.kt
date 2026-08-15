@@ -119,6 +119,7 @@ internal fun DungeonInfoSheet(
     potionEffects: Map<String, Map<String, Int>>,
     selectedPotionKey: String?,
     isStarting: Boolean,
+    isQueueFull: Boolean = false,
     repeatCount: Int,
     enemies: Map<String, EnemyData> = emptyMap(),
     onWeaponSlotSelected: (String) -> Unit,
@@ -177,7 +178,7 @@ internal fun DungeonInfoSheet(
         else       -> "attack"
     }
     val styleLabel = GameStrings.skillName(context, combatStyle)
-    val canStart   = canEnter && !isStarting &&
+    val canStart   = canEnter && !isStarting && !isQueueFull &&
         (combatStyle != "magic" || selectedSpell != null)
 
     Column(

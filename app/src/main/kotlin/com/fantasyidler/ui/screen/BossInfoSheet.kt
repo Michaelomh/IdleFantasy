@@ -123,6 +123,7 @@ internal fun BossInfoSheet(
     potionEffects: Map<String, Map<String, Int>>,
     selectedPotionKey: String?,
     isStarting: Boolean,
+    isQueueFull: Boolean = false,
     repeatCount: Int,
     fullCoinKillsLeft: Int = PlayerRepository.BOSS_FULL_COIN_KILLS_PER_DAY,
     onWeaponSlotSelected: (String) -> Unit,
@@ -141,7 +142,7 @@ internal fun BossInfoSheet(
         else       -> "attack"
     }
     val styleLabel = GameStrings.skillName(context, combatStyle)
-    val canStart = canFight && !isStarting &&
+    val canStart = canFight && !isStarting && !isQueueFull &&
         (combatStyle != "magic" || selectedSpell != null)
 
     Column(
